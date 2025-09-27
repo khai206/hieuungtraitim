@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tỏ Tình Đặc Biệt ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+            background: #000;
+        }
+
+        /* Trang 1 - Trang chờ */
+        #page1 {
+            background: linear-gradient(135deg, #ff6b9d, #ff8fab, #ffb3c6);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            transition: opacity 1s ease, transform 1s ease;
+            position: relative;
+            z-index: 10;
+            overflow: hidden;
+        }
+
+        .heart-container {
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .heart-beat {
+            font-size: 5rem;
+            color: #e75480;
+            animation: heartbeat 1.5s infinite, glow 2s infinite alternate;
+            text-shadow: 0 0 10px rgba(255, 105, 180, 0.7);
+            z-index: 2;
+            position: relative;
+        }
+
+        .message {
+            font-family: 'Pacifico', cursive;
+            font-size: 2.5rem;
+            color: #d63384;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 2;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1.5s ease forwards 0.5s;
+        }
+
+        .click-hint {
+            font-size: 1.2rem;
+            color: #c44569;
+            margin-top: 30px;
+            animation: pulse 2s infinite, float 3s ease-in-out infinite;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 12px 25px;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(5px);
+            position: relative;
+            z-index: 2;
+            opacity: 0;
+            animation: fadeIn 1s ease forwards 1s, pulse 2s infinite 1s, float 3s ease-in-out infinite 1s;
+        }
+
+        .click-hint:hover {
+            transform: scale(1.05);
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Hiệu ứng nền trang 1 */
+        .floating-hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+
+        .floating-heart {
+            position: absolute;
+            font-size: 24px;
+            color: rgba(255, 255, 255, 0.5);
+            animation: floatAround 15s linear infinite;
+        }
+
+        /* Trang 2 - Hiệu ứng POV đặc biệt */
+        #page2 {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 20;
+            overflow: hidden;
+        }
+
+        .pov-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 1000px;
+        }
+
+        .pov-text {
+            position: absolute;
+            font-size: 4rem;
+            font-weight: bold;
+            text-align: center;
+            color: #ff69b4;
+            font-family: 'Pacifico', cursive;
+            text-shadow: 0 0 15px rgba(255, 105, 180, 0.8);
+            opacity: 0;
+            transform: scale(0.5) rotateY(0deg);
+            animation: povEffect 8s infinite;
+            z-index: 10;
+            background: linear-gradient(45deg, #ff69b4, #ff1493, #ff69b4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% 200%;
+            animation: povEffect 8s infinite, gradientShift 3s ease infinite;
+        }
+
+        .heart-rain {
+            position: absolute;
+            font-size: 24px;
+            color: #ff6b9d;
+            pointer-events: none;
+            z-index: 1;
+            animation: fall linear forwards;
+            text-shadow: 0 0 10px rgba(255, 107, 157, 0.7);
+        }
+
+        .stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            animation: twinkle linear infinite;
+        }
+
+        /* Hiệu ứng chữ 3D */
+        .text-3d {
+            font-size: 5rem;
+            font-weight: bold;
+            color: #ff69b4;
+            text-shadow: 
+                2px 2px 0px #ff1493,
+                4px 4px 0px rgba(255, 20, 147, 0.5),
+                6px 6px 0px rgba(255, 20, 147, 0.3);
+            animation: bounce 3s ease infinite;
+            display: none;
+            position: absolute;
+            z-index: 15;
+            font-family: 'Pacifico', cursive;
+            text-align: center;
+        }
+
+        /* Hiệu ứng trái tim lớn nở rộ */
+        .big-heart-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            height: 300px;
+            z-index: 30;
+            display: none;
+        }
+
+        .heart-particle {
+            position: absolute;
+            font-size: 20px;
+            color: #ff6b9d;
+            opacity: 0;
+            pointer-events: none;
+            text-shadow: 0 0 10px rgba(255, 107, 157, 0.7);
+            transition: all 1.5s ease-out;
+        }
+
+        .heart-explosion {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 0;
+            height: 0;
+            z-index: 25;
+            display: none;
+        }
+
+        .explosion-particle {
+            position: absolute;
+            font-size: 20px;
+            color: #ff6b9d;
+            opacity: 0;
+            pointer-events: none;
+            text-shadow: 0 0 10px rgba(255, 107, 157, 0.7);
+            animation: explodeParticle 2s ease-out forwards;
+        }
+
+        /* Animation */
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 10px rgba(255, 105, 180, 0.7); }
+            to { text-shadow: 0 0 20px rgba(255, 105, 180, 0.9), 0 0 30px rgba(255, 105, 180, 0.5); }
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.7; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.05); }
+            100% { opacity: 0.7; transform: scale(1); }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes floatAround {
+            0% { transform: translate(0, 0) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translate(100px, 100vh) rotate(360deg); opacity: 0; }
+        }
+
+        @keyframes povEffect {
+            0% {
+                opacity: 0;
+                transform: scale(0.3) rotateY(0deg);
+            }
+            10% {
+                opacity: 1;
+                transform: scale(0.8) rotateY(180deg);
+            }
+            25% {
+                opacity: 1;
+                transform: scale(1.2) rotateY(360deg);
+            }
+            40% {
+                opacity: 1;
+                transform: scale(1.5) rotateY(540deg);
+            }
+            60% {
+                opacity: 1;
+                transform: scale(1.8) rotateY(720deg);
+            }
+            80% {
+                opacity: 1;
+                transform: scale(2.2) rotateY(900deg);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(2.5) rotateY(1080deg);
+            }
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 1; }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes explodeParticle {
+            0% {
+                opacity: 1;
+                transform: translate(0, 0) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(var(--tx), var(--ty)) scale(0.5);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .message {
+                font-size: 1.8rem;
+            }
+            
+            .heart-beat {
+                font-size: 4rem;
+            }
+            
+            .pov-text {
+                font-size: 2.5rem;
+            }
+            
+            .text-3d {
+                font-size: 3rem;
+            }
+            
+            .big-heart-container {
+                width: 200px;
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Trang 1 - Trang chờ với thông điệp -->
+    <div id="page1">
+        <div class="floating-hearts" id="floatingHearts"></div>
+        <div class="heart-container">
+            <div class="heart-beat">❤️</div>
+        </div>
+        <div class="message">Nguyễn Thị Kim Thoa<br>mau lấy chồng</div>
+        <div class="click-hint" id="surpriseBtn">Bấm vào đây để xem bất ngờ 💖</div>
+    </div>
+
+    <!-- Trang 2 - Hiệu ứng POV đặc biệt -->
+    <div id="page2">
+        <div class="stars" id="stars"></div>
+        <div class="text-3d" id="text3d">Nguyễn Thị Kim Thoa<br>đừng lấy chồng sớm nhé ❤️</div>
+        <div class="big-heart-container" id="bigHeartContainer"></div>
+        <div class="heart-explosion" id="heartExplosion"></div>
+        <div class="pov-container">
+            <div class="pov-text" id="povText">Nguyễn Thị Kim Thoa<br>đừng lấy chồng sớm nhé ❤️</div>
+        </div>
+    </div>
+
+    <script>
+        // Tạo hiệu ứng trái tim nổi trên trang 1
+        function createFloatingHearts() {
+            const container = document.getElementById('floatingHearts');
+            const heartCount = 15;
+            
+            for (let i = 0; i < heartCount; i++) {
+                const heart = document.createElement('div');
+                heart.innerHTML = '❤️';
+                heart.classList.add('floating-heart');
+                
+                // Kích thước ngẫu nhiên
+                const size = Math.random() * 20 + 15;
+                heart.style.fontSize = `${size}px`;
+                
+                // Vị trí ngẫu nhiên
+                heart.style.left = `${Math.random() * 100}%`;
+                heart.style.top = `${Math.random() * 100}%`;
+                
+                // Thời gian animation ngẫu nhiên
+                const duration = Math.random() * 10 + 15;
+                heart.style.animationDuration = `${duration}s`;
+                
+                // Độ trễ ngẫu nhiên
+                heart.style.animationDelay = `${Math.random() * 5}s`;
+                
+                container.appendChild(heart);
+            }
+        }
+        
+        // Tạo hiệu ứng sao lấp lánh
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            const starCount = 150;
+            
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                
+                // Kích thước ngẫu nhiên
+                const size = Math.random() * 3;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                
+                // Vị trí ngẫu nhiên
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                
+                // Thời gian animation ngẫu nhiên
+                star.style.animationDuration = `${Math.random() * 3 + 2}s`;
+                
+                starsContainer.appendChild(star);
+            }
+        }
+        
+        // Tạo hiệu ứng trái tim rơi
+        function createHearts() {
+            const heart = document.createElement('div');
+            heart.innerHTML = '❤️';
+            heart.classList.add('heart-rain');
+            
+            // Kích thước ngẫu nhiên
+            const size = Math.random() * 30 + 20;
+            heart.style.fontSize = `${size}px`;
+            
+            // Vị trí bắt đầu ngẫu nhiên
+            heart.style.left = `${Math.random() * 100}%`;
+            heart.style.top = `-50px`;
+            
+            // Thời gian rơi ngẫu nhiên
+            const duration = Math.random() * 5 + 5;
+            heart.style.animationDuration = `${duration}s`;
+            
+            document.getElementById('page2').appendChild(heart);
+            
+            // Xóa tim sau khi rơi xong
+            setTimeout(() => {
+                heart.remove();
+            }, duration * 1000);
+        }
+        
+        // Tạo hiệu ứng trái tim lớn từ nhiều trái tim nhỏ
+        function createBigHeart() {
+            const container = document.getElementById('bigHeartContainer');
+            container.innerHTML = '';
+            container.style.display = 'block';
+            
+            // Tạo hình trái tim từ nhiều trái tim nhỏ
+            const heartPoints = generateHeartPoints(150);
+            
+            heartPoints.forEach((point, index) => {
+                const particle = document.createElement('div');
+                particle.innerHTML = '❤️';
+                particle.classList.add('heart-particle');
+                
+                // Kích thước ngẫu nhiên
+                const size = Math.random() * 15 + 10;
+                particle.style.fontSize = `${size}px`;
+                
+                // Vị trí ban đầu - ngẫu nhiên xung quanh màn hình
+                const startX = Math.random() * window.innerWidth;
+                const startY = Math.random() * window.innerHeight;
+                particle.style.left = `${startX}px`;
+                particle.style.top = `${startY}px`;
+                
+                // Màu sắc ngẫu nhiên
+                const colors = ['#ff6b9d', '#ff8fab', '#ffb3c6', '#ff69b4', '#ff1493'];
+                particle.style.color = colors[Math.floor(Math.random() * colors.length)];
+                
+                container.appendChild(particle);
+                
+                // Di chuyển trái tim nhỏ đến vị trí trong trái tim lớn
+                setTimeout(() => {
+                    particle.style.opacity = '1';
+                    particle.style.transition = `all 1.5s ease-out ${index * 0.01}s`;
+                    particle.style.left = `calc(50% + ${point.x}px)`;
+                    particle.style.top = `calc(50% + ${point.y}px)`;
+                }, 100);
+            });
+            
+            // Sau khi hình thành trái tim, làm nó nở rộ
+            setTimeout(() => {
+                explodeHeart();
+            }, 3000);
+        }
+        
+        // Tạo các điểm để tạo hình trái tim
+        function generateHeartPoints(count) {
+            const points = [];
+            for (let i = 0; i < count; i++) {
+                // Tạo tọa độ ngẫu nhiên trong hình trái tim
+                let x, y;
+                let inHeart = false;
+                
+                while (!inHeart) {
+                    // Tạo điểm ngẫu nhiên trong khu vực hình trái tim
+                    x = (Math.random() - 0.5) * 300;
+                    y = (Math.random() - 0.5) * 300;
+                    
+                    // Kiểm tra xem điểm có nằm trong hình trái tim không
+                    // Sử dụng phương trình trái tim: (x^2 + y^2 - 1)^3 - x^2*y^3 <= 0
+                    const scaledX = x / 150;
+                    const scaledY = y / 150;
+                    const equation = Math.pow(scaledX*scaledX + scaledY*scaledY - 1, 3) - scaledX*scaledX * Math.pow(scaledY, 3);
+                    
+                    if (equation <= 0) {
+                        inHeart = true;
+                        points.push({x, y});
+                    }
+                }
+            }
+            return points;
+        }
+        
+        // Hiệu ứng nở rộ trái tim
+        function explodeHeart() {
+            const container = document.getElementById('bigHeartContainer');
+            const explosionContainer = document.getElementById('heartExplosion');
+            explosionContainer.style.display = 'block';
+            
+            // Lấy tất cả các trái tim nhỏ
+            const particles = container.querySelectorAll('.heart-particle');
+            
+            particles.forEach(particle => {
+                // Tạo bản sao cho hiệu ứng nổ
+                const explosionParticle = document.createElement('div');
+                explosionParticle.innerHTML = '❤️';
+                explosionParticle.classList.add('explosion-particle');
+                
+                // Sao chép thuộc tính từ particle gốc
+                explosionParticle.style.fontSize = particle.style.fontSize;
+                explosionParticle.style.color = particle.style.color;
+                
+                // Vị trí bắt đầu từ vị trí của particle gốc
+                const rect = particle.getBoundingClientRect();
+                explosionParticle.style.left = `${rect.left}px`;
+                explosionParticle.style.top = `${rect.top}px`;
+                
+                // Hướng nổ ngẫu nhiên
+                const angle = Math.random() * 2 * Math.PI;
+                const distance = Math.random() * 300 + 200;
+                const tx = Math.cos(angle) * distance;
+                const ty = Math.sin(angle) * distance;
+                
+                explosionParticle.style.setProperty('--tx', `${tx}px`);
+                explosionParticle.style.setProperty('--ty', `${ty}px`);
+                
+                explosionContainer.appendChild(explosionParticle);
+                
+                // Ẩn particle gốc
+                particle.style.opacity = '0';
+                
+                // Xóa particle nổ sau khi hoàn thành
+                setTimeout(() => {
+                    explosionParticle.remove();
+                }, 2000);
+            });
+            
+            // Ẩn container trái tim lớn sau khi nổ
+            setTimeout(() => {
+                container.style.display = 'none';
+            }, 1000);
+            
+            // Lặp lại hiệu ứng sau một khoảng thời gian
+            setTimeout(() => {
+                explosionContainer.style.display = 'none';
+                createBigHeart();
+            }, 5000);
+        }
+        
+        // Tạo hiệu ứng POV với nhiều lớp chữ
+        function createPOVEffect() {
+            const povText = document.getElementById('povText');
+            const text = povText.textContent;
+            
+            // Tạo nhiều lớp chữ với độ trễ khác nhau
+            for (let i = 1; i <= 5; i++) {
+                setTimeout(() => {
+                    const newText = document.createElement('div');
+                    newText.classList.add('pov-text');
+                    newText.textContent = text;
+                    newText.style.animationDelay = `${i * 0.5}s`;
+                    newText.style.color = i % 2 === 0 ? '#ff1493' : '#ff69b4';
+                    document.querySelector('.pov-container').appendChild(newText);
+                    
+                    // Xóa sau khi animation kết thúc
+                    setTimeout(() => {
+                        newText.remove();
+                    }, 8000 + i * 500);
+                }, i * 3000);
+            }
+            
+            // Lặp lại hiệu ứng
+            setTimeout(createPOVEffect, 15000);
+        }
+        
+        // Hiệu ứng chữ 3D
+        function show3dText() {
+            const text3d = document.getElementById('text3d');
+            text3d.style.display = 'block';
+            
+            // Ẩn sau 5 giây
+            setTimeout(() => {
+                text3d.style.display = 'none';
+            }, 5000);
+            
+            // Hiện lại sau 10 giây
+            setTimeout(show3dText, 10000);
+        }
+        
+        // Xử lý sự kiện click vào nút bất ngờ
+        document.getElementById('surpriseBtn').addEventListener('click', function() {
+            const page1 = document.getElementById('page1');
+            const page2 = document.getElementById('page2');
+            
+            // Thêm hiệu ứng chuyển trang
+            page1.style.transform = 'scale(1.1)';
+            page1.style.opacity = '0';
+            
+            setTimeout(() => {
+                page1.style.display = 'none';
+                page2.style.display = 'flex';
+                
+                // Tạo hiệu ứng sao
+                createStars();
+                
+                // Tạo hiệu ứng trái tim rơi liên tục
+                setInterval(createHearts, 200);
+                
+                // Tạo hiệu ứng POV
+                createPOVEffect();
+                
+                // Hiển thị chữ 3D
+                setTimeout(show3dText, 2000);
+                
+                // Tạo trái tim lớn
+                setTimeout(createBigHeart, 1000);
+            }, 1000);
+        });
+        
+        // Khởi tạo hiệu ứng trái tim nổi khi trang load
+        window.addEventListener('load', createFloatingHearts);
+    </script>
+</body>
+</html>
